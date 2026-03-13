@@ -1,4 +1,4 @@
-name: vutiendat3601-=
+name: vutiendat3601-backend-java-relationaldatabaselocking
 services:
   postgres:
     image: postgres:18-trixie

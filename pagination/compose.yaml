@@ -1,0 +1,10 @@
+name: vutiendat3601-backend-java-pagination
+services:
+  postgres:
+    image: postgres:18-trixie
+    environment:
+      POSTGRES_USER: pagination
+      POSTGRES_PASSWORD: pagination
+      POSTGRES_DB: pagination
+    ports:
+      - "12027:5432"

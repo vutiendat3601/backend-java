@@ -1,0 +1,10 @@
+name: vutiendat3601-=
+services:
+  postgres:
+    image: postgres:18-trixie
+    environment:
+      POSTGRES_USER: relationaldatabaselocking
+      POSTGRES_PASSWORD: relationaldatabaselocking
+      POSTGRES_DB: relationaldatabaselocking
+    ports:
+      - "12026:5432"

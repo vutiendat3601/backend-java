@@ -1,6 +1,5 @@
 package vn.io.vutiendat3601.pagination.dto;
 
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +16,5 @@ public class StudentDto {
 
   private String lastName;
 
-  private LocalDateTime createdAt;
+  private long createdAt;
 }

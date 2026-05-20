@@ -1,19 +1,15 @@
 package vn.io.vutiendat3601.pagination.service.impl;
 
-import static vn.io.vutiendat3601.pagination.constant.Constant.LOCAL_DATE_TIME_MAX;
+import static vn.io.vutiendat3601.pagination.constant.Constant.INSTANT_MAX;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Base64;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import vn.io.vutiendat3601.pagination.dto.PaginationResponse;
 import vn.io.vutiendat3601.pagination.dto.StudentDto;
-import vn.io.vutiendat3601.pagination.entity.Student;
 import vn.io.vutiendat3601.pagination.mapper.StudentMapper;
 import vn.io.vutiendat3601.pagination.repository.StudentRepository;
 import vn.io.vutiendat3601.pagination.service.StudentService;
@@ -28,30 +24,26 @@ public class StudentServiceV1 implements StudentService {
 
   @Override
   public PaginationResponse<StudentDto> getStudents(int pageIndex, int pageSize) {
-    Page<Student> page = studentRepository.findAll(PageRequest.of(pageIndex, pageSize));
+    var page = studentRepository.findAll(PageRequest.of(pageIndex, pageSize));
     return PaginationResponse.of(page.map(studentMapper::mapToStudentDto));
   }
 
   @Override
   public PaginationResponse<StudentDto> getStudents(String cursor, int pageSize) {
-
-    LocalDateTime createdAtCursor = LOCAL_DATE_TIME_MAX;
+    var createdAtCursor = INSTANT_MAX;
     if (Objects.nonNull(cursor)) {
-      final String decodedCursor = new String(base64Decoder.decode(cursor.getBytes()));
-      createdAtCursor = LocalDateTime.parse(decodedCursor);
+      var decodedCursor = Long.valueOf(new String(base64Decoder.decode(cursor.getBytes())));
+      createdAtCursor = Instant.ofEpochMilli(decodedCursor);
     }
 
-    final List<Student> students =
-        studentRepository.findByCreatedAtCursor(createdAtCursor, pageSize);
-    LocalDateTime cursorDateTime = LOCAL_DATE_TIME_MAX;
+    var students = studentRepository.findByCreatedAtCursorLessThan(createdAtCursor, pageSize);
+    var newCreatedAtCursor = createdAtCursor;
     if (students.size() > 0) {
-      cursorDateTime = students.get(students.size() - 1).getCreatedAt();
+      newCreatedAtCursor = students.get(students.size() - 1).getCreatedAt();
     }
-    final String newCursor =
-        Optional.ofNullable(cursorDateTime).orElse(LOCAL_DATE_TIME_MAX).toString();
-    final String encodedNewCursor = new String(base64Encoder.encode(newCursor.getBytes()));
-    final List<StudentDto> studentDtos =
-        students.stream().map(studentMapper::mapToStudentDto).toList();
+    var encodedNewCursor =
+        new String(base64Encoder.encode(("" + newCreatedAtCursor.toEpochMilli()).getBytes()));
+    var studentDtos = students.stream().map(studentMapper::mapToStudentDto).toList();
     return PaginationResponse.<StudentDto>builder()
         .items(studentDtos)
         .pageIndex(-1)

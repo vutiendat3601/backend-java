@@ -2,15 +2,28 @@ package vn.io.vutiendat3601.pagination;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.ContextClosedEvent;
+import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
 public class BootstrapApplication {
-  private static final int CASE_NUMBER = 0;
 
   public static void main(String[] args) {
-    final ApplicationContext ctx = SpringApplication.run(BootstrapApplication.class, args);
-    final UseCase useCase = ctx.getBean(UseCase.class);
-    useCase.tryCase(CASE_NUMBER);
+    SpringApplication.run(BootstrapApplication.class, args);
+  }
+
+  @EventListener
+  void onStartup(ApplicationReadyEvent event) {
+    var ctx = event.getApplicationContext();
+    var seeder = ctx.getBean(Seeder.class);
+    seeder.setUp();
+  }
+
+  @EventListener
+  void onShutdown(ContextClosedEvent event) {
+    var ctx = event.getApplicationContext();
+    var seeder = ctx.getBean(Seeder.class);
+    seeder.tearDown();
   }
 }

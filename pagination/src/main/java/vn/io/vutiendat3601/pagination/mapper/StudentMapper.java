@@ -11,7 +11,7 @@ public class StudentMapper {
         .studentId(student.getStudentId())
         .firstName(student.getFirstName())
         .lastName(student.getLastName())
-        .createdAt(student.getCreatedAt())
+        .createdAt(student.getCreatedAt().toEpochMilli())
         .build();
   }
 }

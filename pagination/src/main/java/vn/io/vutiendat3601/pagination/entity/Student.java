@@ -5,8 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.Clock;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,5 +30,5 @@ public class Student {
 
   private String lastName;
 
-  @Builder.Default private LocalDateTime createdAt = LocalDateTime.now(Clock.systemUTC());
+  private Instant createdAt;
 }

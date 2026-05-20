@@ -1,8 +1,8 @@
 package vn.io.vutiendat3601.pagination.constant;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public interface Constant {
-  LocalDateTime LOCAL_DATE_TIME_MIN = LocalDateTime.of(1970, 1, 1, 0, 0);
-  LocalDateTime LOCAL_DATE_TIME_MAX = LocalDateTime.of(2200, 1, 1, 0, 0);
+  Instant INSTANT_MIN = Instant.ofEpochMilli(0L);
+  Instant INSTANT_MAX = Instant.ofEpochMilli(32503680000000L); // 3000-01-01 00:00:00
 }

@@ -1,6 +1,6 @@
 package vn.io.vutiendat3601.pagination.repository;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +13,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 """
 SELECT s FROM student s WHERE s.createdAt < :createdAt ORDER BY s.createdAt DESC LIMIT :limit
 """)
-  List<Student> findByCreatedAtCursor(
-      @Param("createdAt") LocalDateTime createdAt, @Param("limit") int limit);
+  List<Student> findByCreatedAtCursorLessThan(
+      @Param("createdAt") Instant createdAt, @Param("limit") int limit);
 }

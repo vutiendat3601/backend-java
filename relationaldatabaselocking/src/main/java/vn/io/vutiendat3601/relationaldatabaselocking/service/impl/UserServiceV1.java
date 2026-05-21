@@ -6,9 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import vn.io.vutiendat3601.relationaldatabaselocking.entity.Booking;
-import vn.io.vutiendat3601.relationaldatabaselocking.entity.Room;
-import vn.io.vutiendat3601.relationaldatabaselocking.exception.ConflictRoomBookingException;
-import vn.io.vutiendat3601.relationaldatabaselocking.exception.RoomNotFoundException;
+import vn.io.vutiendat3601.relationaldatabaselocking.exception.ConflictResourceException;
+import vn.io.vutiendat3601.relationaldatabaselocking.exception.ResourceNotFoundException;
 import vn.io.vutiendat3601.relationaldatabaselocking.repository.BookingRepository;
 import vn.io.vutiendat3601.relationaldatabaselocking.repository.RoomRepository;
 import vn.io.vutiendat3601.relationaldatabaselocking.service.UserService;
@@ -24,65 +23,66 @@ public class UserServiceV1 implements UserService {
   @Transactional
   @Override
   public Booking bookRoomUsingPessimisticLocking(Long userId, Long roomId) {
-    log.info("Start booking room, userId = {}, roomId = {}", userId, roomId);
-    final Room room =
+    log.info("Start booking room: userId={},roomId={}. Using Pessimistic Locking.", userId, roomId);
+    var room =
         roomRepository
             .findByIdAndAvailable(
                 roomId,
                 true) // Lock here: findByIdAndAvailable(roomId, true), wait until the lock released
             .orElseThrow(
                 () -> {
-                  log.info("Room not found, roomId = {}", roomId);
-                  return new RoomNotFoundException();
+                  log.info("Room not found: roomId={}", roomId);
+                  return new ResourceNotFoundException(
+                      "Room not found, roomId=%d".formatted(roomId));
                 });
-    log.info("Locked row for update, roomId = {}", roomId);
-    final Booking booking = Booking.builder().roomId(room.getId()).userId(userId).build();
+    log.info("Locked row for update: roomId={}", roomId);
+    var booking = Booking.builder().roomId(room.getId()).userId(userId).build();
     bookingRepository.save(booking);
     try {
       Thread.sleep(Duration.ofSeconds(SLEEP_SECONDS));
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    int numOfUpdatedRows = roomRepository.updateRoomAsUnavailableUsingPessimisticLocking(roomId);
+    var numOfUpdatedRows = roomRepository.updateRoomAsUnavailableUsingPessimisticLocking(roomId);
     if (numOfUpdatedRows == 0) {
-      log.info("Booked room unsuccessfully, the room was changed, id = {}", room.getId());
-      throw new ConflictRoomBookingException();
+      log.info("Booked room unsuccessfully, the room was changed: roomId={}", room.getId());
+      throw new ConflictResourceException(
+          "Booked room unsuccessfully, the room was changed: roomId=%d".formatted(room.getId()));
     }
-    log.info("Booked room successfully, userId = {}, id = {}", userId, room.getId());
+    log.info("Booked room successfully: userId={}, roomId={}", userId, room.getId());
     return booking;
   }
 
   @Transactional
   @Override
   public Booking bookRoomUsingOptimisticLocking(Long userId, Long roomId) {
-    log.info("Start booking room, userId = {}, id = {}", userId, roomId);
-    final Room room =
+    log.info("Start booking room: userId={},roomId={}. Using Optimistic Locking.", userId, roomId);
+    var room =
         roomRepository
             .findOneByIdAndAvailable(roomId, true)
             .orElseThrow(
                 () -> {
-                  log.info("Room not found, id = {}", roomId);
-                  return new RoomNotFoundException();
+                  log.info("Room not found: roomId={}", roomId);
+                  return new ResourceNotFoundException("Room not found, roomId=%d".formatted(roomId));
                 });
-    final Booking booking = Booking.builder().roomId(room.getId()).userId(userId).build();
+    var booking = Booking.builder().roomId(room.getId()).userId(userId).build();
     bookingRepository.save(booking);
     try {
       Thread.sleep(Duration.ofSeconds(SLEEP_SECONDS));
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    int numOfUpdatedRows =
+    var numOfUpdatedRows =
         roomRepository.updateRoomAsUnavailableUsingOptimisticLocking(
             roomId, room.getVersion()); // Lock here
     if (numOfUpdatedRows == 0) {
       log.info(
-"""
-Booked room unsuccessfully, the room was changed, id = {}. The change is being roll back
-""",
+          "Booked room unsuccessfully, the room was changed: roomId={}. The changes are being roll back.",
           room.getId());
-      throw new ConflictRoomBookingException();
+      throw new ConflictResourceException(
+          "Booked room unsuccessfully, the room was changed: roomId=%d".formatted(roomId));
     }
-    log.info("Booked room successfully, userId = {}, id = {}", userId, room.getId());
+    log.info("Booked room successfully: userId={}, roomId={}", userId, room.getId());
     return booking;
   }
 }

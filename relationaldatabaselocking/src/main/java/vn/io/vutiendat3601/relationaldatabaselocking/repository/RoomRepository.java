@@ -12,14 +12,14 @@ import vn.io.vutiendat3601.relationaldatabaselocking.entity.Room;
 public interface RoomRepository extends JpaRepository<Room, Long> {
   // Pessimistic locking
   @Lock(LockModeType.PESSIMISTIC_WRITE)
-  Optional<Room> findByIdAndAvailable(Long id, Boolean available);
+  Optional<Room> findByIdAndAvailable(long id, boolean available);
 
   // Optimistic locking
-  Optional<Room> findOneByIdAndAvailable(Long id, Boolean available);
+  Optional<Room> findOneByIdAndAvailable(long id, boolean available);
 
   @Modifying
   @Query("UPDATE room SET available = false WHERE id = :id")
-  int updateRoomAsUnavailableUsingPessimisticLocking(@Param("id") Long id);
+  int updateRoomAsUnavailableUsingPessimisticLocking(@Param("id") long id);
 
   @Modifying
   @Query(
@@ -27,6 +27,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 UPDATE room SET available = false, version = version + 1
 WHERE id = :id AND version = :version
 """)
-  int updateRoomAsUnavailableUsingOptimisticLocking(
-      @Param("id") Long id, @Param("version") Long version);
+  long updateRoomAsUnavailableUsingOptimisticLocking(
+      @Param("id") long id, @Param("version") long version);
 }

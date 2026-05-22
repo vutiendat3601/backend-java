@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:18-trixie
+    environment:
+      POSTGRES_USER: caching
+      POSTGRES_PASSWORD: caching
+      POSTGRES_DB: caching
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:8.6-trixie
+    # environment:
+    ports:
+      - "6379:6379"

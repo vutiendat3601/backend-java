@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:18-trixie
+    environment:
+      POSTGRES_USER: distributedlocking
+      POSTGRES_PASSWORD: distributedlocking
+      POSTGRES_DB: distributedlocking
+    ports:
+      - "12027:5432"
+  redis:
+    image: "redis:8.6-trixie"
+    ports:
+      - "6379:6379"

@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:18-trixie
+    environment:
+      POSTGRES_DB: chatsaas
+      POSTGRES_PASSWORD: chatsaas
+      POSTGRES_USER: chatsaas
+    ports:
+      - "15432:5432"
+  redis:
+    image: "redis:8.6-trixie"
+    ports:
+      - "6379:6379"

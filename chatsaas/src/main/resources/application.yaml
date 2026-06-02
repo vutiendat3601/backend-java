@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: chatsaas
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+    show-sql: true
+    properties:
+      hibernate:
+        "[format_sql]": true
+
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}

@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:18-trixie
+    environment:
+      POSTGRES_USER: instamini
+      POSTGRES_PASSWORD: instamini
+      POSTGRES_DB: instamini
+    ports:
+      - "5432:5432"
+    networks:
+      - default
+
+  redis:
+    image: "redis:8.6-trixie"
+    ports:
+      - "6379:6379"
+    networks:
+      - default
+
+  minio:
+    image: "minio/minio:RELEASE.2025-09-07T16-13-09Z-cpuv1"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: "server /data --console-address ':9001'"
+networks:
+  default:
+    name: instamini-net

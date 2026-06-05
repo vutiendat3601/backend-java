@@ -5,12 +5,13 @@ import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import vn.io.vutiendat3601.instamini.dto.event.LikePostEvent;
 import vn.io.vutiendat3601.instamini.dto.request.UploadImageRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.CreatePostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.DeletePostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.GetPostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.LikePostRequest;
-import vn.io.vutiendat3601.instamini.dto.request.feed.ListUserPostRequest;
+import vn.io.vutiendat3601.instamini.dto.request.feed.ListPostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.UnlikePostRequest;
 import vn.io.vutiendat3601.instamini.dto.response.feed.CreatePostResponse;
 import vn.io.vutiendat3601.instamini.dto.response.feed.DeletePostResponse;
@@ -19,6 +20,7 @@ import vn.io.vutiendat3601.instamini.dto.response.feed.LikePostResponse;
 import vn.io.vutiendat3601.instamini.dto.response.feed.ListUserPostResponse;
 import vn.io.vutiendat3601.instamini.dto.response.feed.UnlikePostResponse;
 import vn.io.vutiendat3601.instamini.entity.Post;
+import vn.io.vutiendat3601.instamini.event.EventProducer;
 import vn.io.vutiendat3601.instamini.exception.NoPermissionException;
 import vn.io.vutiendat3601.instamini.exception.PostNotFoundException;
 import vn.io.vutiendat3601.instamini.mapper.PostMapper;
@@ -41,6 +43,8 @@ public class PostServiceV1 implements PostService {
   private final UploadService uploadService;
 
   private final PostRepository postRepository;
+
+  private final EventProducer eventProducer;
 
   @Transactional
   @Override
@@ -91,6 +95,10 @@ public class PostServiceV1 implements PostService {
     var userPrincipalProfile = profileRepository.getReferenceById(userPrincipalProfileDto.id());
     post.getLikedByProfiles().add(userPrincipalProfile);
     post = postRepository.save(post);
+
+    var likePostEvent = new LikePostEvent(userPrincipalProfileDto.id(), post.getId());
+    eventProducer.sendLikePostEvent(likePostEvent);
+
     return new LikePostResponse(postMapper.mapToPostDto(post));
   }
 
@@ -107,7 +115,7 @@ public class PostServiceV1 implements PostService {
   }
 
   @Override
-  public ListUserPostResponse getUserPosts(ListUserPostRequest listUserPostReq) {
+  public ListUserPostResponse listPosts(ListPostRequest listUserPostReq) {
     var userPrincipalProfileDto = profileService.getProfile(listUserPostReq.profileId()).profile();
     var userPrincipalProfile = profileRepository.getReferenceById(userPrincipalProfileDto.id());
     var posts = postRepository.findByCreatedBy(userPrincipalProfile);

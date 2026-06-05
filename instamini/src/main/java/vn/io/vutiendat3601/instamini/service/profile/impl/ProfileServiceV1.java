@@ -77,7 +77,7 @@ public class ProfileServiceV1 implements ProfileService {
               var newProfile =
                   Profile.builder()
                       .userId(userId)
-                      .profileImageFilePath(userPrincipal.getPictureUrl())
+                      .profileImageUrl(userPrincipal.getPictureUrl())
                       .displayName(userPrincipal.getName())
                       .build();
               return profileRepository.save(newProfile);

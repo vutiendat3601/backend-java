@@ -17,6 +17,17 @@ services:
     networks:
       - default
 
+  rabbitmq:
+    image: "rabbitmq:4.3.1-management-alpine"
+    environment:
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+      RABBITMQ_DEFAULT_USER: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - default
+
   minio:
     image: "minio/minio:RELEASE.2025-09-07T16-13-09Z-cpuv1"
     environment:

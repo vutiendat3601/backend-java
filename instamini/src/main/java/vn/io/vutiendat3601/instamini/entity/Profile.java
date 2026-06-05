@@ -32,6 +32,9 @@ public class Profile {
   @Column(name = "profile_image_file_path")
   private String profileImageFilePath;
 
+  @Column(name = "profile_image_url")
+  private String profileImageUrl;
+
   @Column(name = "display_name")
   private String displayName;
 

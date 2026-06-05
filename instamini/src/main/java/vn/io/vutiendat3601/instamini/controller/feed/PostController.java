@@ -5,7 +5,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,7 @@ import vn.io.vutiendat3601.instamini.dto.request.feed.CreatePostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.DeletePostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.GetPostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.LikePostRequest;
-import vn.io.vutiendat3601.instamini.dto.request.feed.ListUserPostRequest;
+import vn.io.vutiendat3601.instamini.dto.request.feed.ListPostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.UnlikePostRequest;
 import vn.io.vutiendat3601.instamini.dto.response.feed.CreatePostResponse;
 import vn.io.vutiendat3601.instamini.dto.response.feed.DeletePostResponse;
@@ -46,39 +45,36 @@ public class PostController {
   }
 
   @GetMapping("{id}")
-  public ResponseEntity<GetPostResponse> getPost(@PathVariable("id") Long id) {
+  public ResponseEntity<GetPostResponse> getPost(@PathVariable(name = "id") Long id) {
     var getPostResp = postService.getPost(new GetPostRequest(id));
     return ResponseEntity.ok(getPostResp);
   }
 
   @DeleteMapping("{id}")
   public ResponseEntity<DeletePostResponse> deletePost(
-      @PathVariable Long id, Authentication authentication) {
-    var userPrincipal = (UserPrincipal) authentication.getPrincipal();
+      @PathVariable(name = "id") Long id, @AuthenticationPrincipal UserPrincipal userPrincipal) {
     var deletePostResp = postService.deletePost(userPrincipal, new DeletePostRequest(id));
     return ResponseEntity.ok(deletePostResp);
   }
 
   @PostMapping("{id}/like")
   public ResponseEntity<LikePostResponse> likePost(
-      @PathVariable Long id, Authentication authentication) {
-    var userPrincipal = (UserPrincipal) authentication.getPrincipal();
+      @PathVariable(name = "id") Long id, @AuthenticationPrincipal UserPrincipal userPrincipal) {
     var likePostResp = postService.likePost(userPrincipal, new LikePostRequest(id));
     return ResponseEntity.ok(likePostResp);
   }
 
   @DeleteMapping("{id}/like")
   public ResponseEntity<UnlikePostResponse> unlikePost(
-      @PathVariable Long id, Authentication authentication) {
-    var userPrincipal = (UserPrincipal) authentication.getPrincipal();
+      @PathVariable(name = "id") Long id, @AuthenticationPrincipal UserPrincipal userPrincipal) {
     var unlikePostResp = postService.unlikePost(userPrincipal, new UnlikePostRequest(id));
     return ResponseEntity.ok(unlikePostResp);
   }
 
   @GetMapping("created-by/{profileId}")
-  public ResponseEntity<ListUserPostResponse> getUserPosts(
+  public ResponseEntity<ListUserPostResponse> listPosts(
       @PathVariable(name = "profileId") Long profileId) {
-    var listUserPostResp = postService.getUserPosts(new ListUserPostRequest(profileId));
+    var listUserPostResp = postService.listPosts(new ListPostRequest(profileId));
     return ResponseEntity.ok(listUserPostResp);
   }
 }

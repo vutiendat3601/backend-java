@@ -4,7 +4,7 @@ import vn.io.vutiendat3601.instamini.dto.request.feed.CreatePostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.DeletePostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.GetPostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.LikePostRequest;
-import vn.io.vutiendat3601.instamini.dto.request.feed.ListUserPostRequest;
+import vn.io.vutiendat3601.instamini.dto.request.feed.ListPostRequest;
 import vn.io.vutiendat3601.instamini.dto.request.feed.UnlikePostRequest;
 import vn.io.vutiendat3601.instamini.dto.response.feed.CreatePostResponse;
 import vn.io.vutiendat3601.instamini.dto.response.feed.DeletePostResponse;
@@ -25,5 +25,5 @@ public interface PostService {
 
   UnlikePostResponse unlikePost(UserPrincipal userPrincipal, UnlikePostRequest unlikePostReq);
 
-  ListUserPostResponse getUserPosts(ListUserPostRequest listUserPostReq);
+  ListUserPostResponse listPosts(ListPostRequest listUserPostReq);
 }

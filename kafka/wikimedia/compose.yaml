@@ -88,10 +88,56 @@ services:
       - kafka-2
     networks:
       - default
+  
+  opensearch:
+    image: "opensearchproject/opensearch:3.7.0"
+    container_name: wikimedia-opensearch
+    hostname: wikimedia-opensearch
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node
+      - discovery.type=single-node
+
+      # Disable security for DEV
+      - plugins.security.disabled=true
+
+      # JVM heap size
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=$@sj6fl5k9jA1dlFJh231$1@s"
+
+      # Allow CORS
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+    ports:
+      - "9200:9200" # REST API
+      - "9600:9600" # Performance analyzer
+
+    volumes:
+      - wikimedia-opensearch-data:/usr/share/opensearch/data
+    networks:
+      - default
+  opensearch-dashboards:
+    image: "opensearchproject/opensearch-dashboards:3.7.0"
+    container_name: wikimedia-opensearch-dashboards
+    ports:
+      - "5601:5601"
+    environment:
+      - OPENSEARCH_HOSTS=["http://wikimedia-opensearch:9200"]
+      - DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+    depends_on:
+      - opensearch
+    networks:
+      - default
 
 volumes:
   wikimedia-kafka1-data:
   wikimedia-kafka2-data:
+  wikimedia-opensearch-data:
 
 networks:
   default:

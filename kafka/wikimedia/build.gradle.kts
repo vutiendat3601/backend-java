@@ -1,5 +1,7 @@
 plugins {
 	java
+  id("org.springframework.boot") version "4.1.0"
+  id("io.spring.dependency-management") version "1.1.7"
 }
 
 group = "vn.io.vutiendat3601"
@@ -16,11 +18,18 @@ repositories {
 }
 
 dependencies {
+  implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.apache.kafka:kafka-clients:4.3.0")
   implementation("com.squareup.okhttp3:okhttp:5.4.0")
   implementation("com.launchdarkly:okhttp-eventsource:4.3.0")
-  implementation("org.slf4j:slf4j-api:2.0.18")
-  implementation("org.slf4j:slf4j-simple:2.0.18")
+  implementation("org.opensearch.client:opensearch-rest-high-level-client:3.6.0")
+  implementation("com.google.code.gson:gson:2.14.0")
+  compileOnly("org.projectlombok:lombok")
+  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  annotationProcessor("org.projectlombok:lombok")
+  testCompileOnly("org.projectlombok:lombok")
+  testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+  testAnnotationProcessor("org.projectlombok:lombok")
 }
 
 tasks.withType<Test> {

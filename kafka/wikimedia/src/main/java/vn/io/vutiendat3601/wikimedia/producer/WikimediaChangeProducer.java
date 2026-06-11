@@ -16,7 +16,7 @@ import vn.io.vutiendat3601.wikimedia.handler.WikimediaChangeHandler;
 
 public class WikimediaChangeProducer {
   private static final Properties KAFKA_PROPS = new Properties();
-  private static final String TOPIC = "wikimedia.recentchanges";
+  public static final String TOPIC = "wikimedia.recentchanges";
   private static final String USER_AGENT =
       "Mozilla/5.0 (Linux; Android 8.0.0; SM-G955U Build/R16NW) AppleWebKit/537.36 (KHTML, like"
           + " Gecko) Chrome/148.0.0.0 Mobile Safari/537.36";
@@ -52,6 +52,6 @@ public class WikimediaChangeProducer {
 
     backgroundEventSource.start();
 
-    TimeUnit.SECONDS.sleep(1);
+    TimeUnit.SECONDS.sleep(60);
   }
 }

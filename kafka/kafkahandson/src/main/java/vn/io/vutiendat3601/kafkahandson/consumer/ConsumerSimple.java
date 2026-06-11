@@ -60,17 +60,17 @@ public class ConsumerSimple {
       while (true) {
         log.info("Polling data");
         var consumerRecords = consumer.poll(Duration.ofSeconds(1));
-        int numberOfRecords = 0;
+        int numberOfRecords = consumerRecords.count();
+        log.info("### Received numbesr of records: {} ###", numberOfRecords);
         for (var record : consumerRecords) {
           log.info("Key: {}, value: {}", record.key(), record.value());
           log.info("Partition: {}, Offset: {}", record.partition(), record.offset());
-          numberOfRecords++;
         }
-        log.info("### Received number of records: {} ###", numberOfRecords);
         TimeUnit.SECONDS.sleep(1L);
       }
     } catch (WakeupException e) {
-      log.info("Consumer is starting to shutdown: memberId={}", consumer.groupMetadata().memberId());
+      log.info(
+          "Consumer is starting to shutdown: memberId={}", consumer.groupMetadata().memberId());
     } finally {
       consumer.close();
       log.info("Consumer is graceful shutdown");

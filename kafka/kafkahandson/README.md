@@ -34,7 +34,7 @@ Timestamp (system or user set)
 - **`Consumers`** read data from a topic by **`pulling`**.
 - **`Consumer`** automatically know from which broker to read.
 - Data is read in order from low to high offset within each **`Partition`**.
-
+- Consumer auto commit when `enable.auto.commit==true` and poll() and `auto.commit.interval.ms=5000` elapsed.
 ##### Consumer Group
 - All consumers in an application read data in a topic as a **`Consumer Group`**. A topic allows multiple **`Consumer Group`** reading.
 - Each consumer winthin a group read from exclusive **`partions`**.

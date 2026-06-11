@@ -18,6 +18,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 public class ProducerWithCallback {
   public static void main(String[] args) {
     log.info("### Kafka Producer with Callback ###\n\n\n");
+    var topic = "kafka_hands_on";
 
     // # Create Producer Properties
     var props = new Properties();
@@ -49,7 +50,7 @@ public class ProducerWithCallback {
             };
     for (int i = 0; i < 1_000; i++) {
       var producerRecord =
-          new ProducerRecord<String, String>("kafka-hands-on", "Hello, world! - " + i);
+          new ProducerRecord<String, String>(topic, "Hello, world! - " + i);
       producer.send(producerRecord, callback);
     }
 

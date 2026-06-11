@@ -10,7 +10,8 @@ import org.apache.kafka.common.serialization.StringSerializer;
 public class ProducerSimple {
   public static void main(String[] args) {
     log.info("### Simple Kafka Producer ###\n\n\n");
-
+    var topic = "kafka_hands_on";
+    
     // # Create Producer Properties
     var props = new Properties();
 
@@ -29,7 +30,7 @@ public class ProducerSimple {
     // # Send data
     for (int i = 0; i < 1_000; i++) {
       var producerRecord =
-          new ProducerRecord<String, String>("kafka-hands-on", "Hello, world! - " + i);
+          new ProducerRecord<String, String>(topic, "Hello, world! - " + i);
       producer.send(producerRecord);
     }
 

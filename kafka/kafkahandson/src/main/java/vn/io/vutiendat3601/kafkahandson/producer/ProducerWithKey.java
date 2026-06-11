@@ -18,6 +18,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 public class ProducerWithKey {
   public static void main(String[] args) {
     log.info("### Kafka Producer with Key ###\n\n\n");
+    var topic = "kafka_hands_on";
 
     // # Create Producer Properties
     var props = new Properties();
@@ -49,8 +50,7 @@ public class ProducerWithKey {
             };
     for (int i = 0; i < 1_000; i++) {
       var key = (i % 10) + "";
-      var producerRecord =
-          new ProducerRecord<String, String>("kafka-hands-on", key, "Hello, world! - " + i);
+      var producerRecord = new ProducerRecord<String, String>(topic, key, "Hello, world! - " + i);
       producer.send(producerRecord, callback);
     }
 

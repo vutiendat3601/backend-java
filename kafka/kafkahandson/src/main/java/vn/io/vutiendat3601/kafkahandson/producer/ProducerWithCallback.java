@@ -30,6 +30,7 @@ public class ProducerWithCallback {
     props.setProperty("key.serializer", StringSerializer.class.getName());
     props.setProperty("value.serializer", StringSerializer.class.getName());
     props.setProperty("batch.size", "1024"); // bytes
+    props.setProperty("acks", "-1");
     // props.setProperty("auto.create.topics.enable", "true"); // DEV
 
     // # Create Producer

@@ -24,7 +24,9 @@ public class WordcountStream {
   }
 
   public static void main(String[] args) {
-    var streams = new KafkaStreams(createTopology(), props);
+    var topology = createTopology();
+    log.info("topology={}", topology);
+    var streams = new KafkaStreams(topology, props);
     streams.start();
     Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
   }

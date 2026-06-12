@@ -97,8 +97,8 @@ services:
       - "8083:8083"
     volumes:
       - "./worker-standalone.properties:/etc/kafka-connect/worker-standalone.properties"
-      - "./file-stream-connecter-standalone.properties:/etc/kafka-connect/file-stream-connecter-standalone.properties"
-      - "./appendable-file.txt:/temp/appendable-file.txt"
+      - "./file-stream-source-connecter-standalone.properties:/etc/kafka-connect/file-stream-source-connecter-standalone.properties"
+      - "./appendable-file.txt:/tmp/appendable-file.txt"
     command: connect-standalone /etc/kafka-connect/worker-standalone.properties /etc/kafka-connect/file-stream-connecter-standalone.properties
     networks:
       - default

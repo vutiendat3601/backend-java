@@ -43,6 +43,7 @@ public class TransactionServiceV1 implements TransactionService {
       throw new TooManyRequestException("");
     }
     try {
+      log.info("Start sleeping ... {}", idempotentKey);
       TimeUnit.SECONDS.sleep(10);
     } catch (InterruptedException e) {
       e.printStackTrace();

@@ -1,16 +1,17 @@
 package vn.io.vutiendat3601.distributedlocking.service.impl;
 
 import java.time.Duration;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import vn.io.vutiendat3601.distributedlocking.service.DistributedLockService;
 
+@RequiredArgsConstructor
 @Service
 public class RedisDistributedLockService implements DistributedLockService {
   private static final int LOCK_TIME_IN_MINUTE = 3;
   private static final String LOCK_VALUE = "1";
-  @Autowired private RedisTemplate<String, String> redisTemplate;
+  private final RedisTemplate<String, String> redisTemplate;
 
   private String generateLockKey(String idempotentKey) {
     return String.format("lock:%s", idempotentKey);

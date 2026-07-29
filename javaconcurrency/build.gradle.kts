@@ -1,5 +1,7 @@
 plugins {
   java
+  // id("org.barfuin.gradle.taskinfo") version "3.0.2"
+  id("com.dorongold.task-tree") version "4.0.1"
 }
 
 repositories {

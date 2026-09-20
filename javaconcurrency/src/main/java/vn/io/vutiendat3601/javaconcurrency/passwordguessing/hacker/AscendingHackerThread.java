@@ -9,6 +9,7 @@ public class AscendingHackerThread extends HackerThread {
 
   public AscendingHackerThread(Vault vault) {
     super(vault);
+    setName(AscendingHackerThread.class.getSimpleName());
   }
 
   @Override

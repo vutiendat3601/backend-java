@@ -67,3 +67,9 @@
 ## WHEN to prefer Multi-process architecture
 - Security, stability are of higher importance
 - Tasks are unrelated to each other
+
+## Performance
+### Latency
+- The time to completion of a task. Measured in `timeUnit` (ms).
+### Throughput
+- The amount of tasks completed in a given period. Measured in `numberOfTasks/timeUnit` (1000 requests/second)

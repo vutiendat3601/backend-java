@@ -19,10 +19,10 @@ public class TheFirstThreadCreationApplication {
     thread.setPriority(Thread.MAX_PRIORITY);
     thread.setUncaughtExceptionHandler(
         (threadInstance, exception) ->
-            log.error("Caught error in thread " + threadInstance.getName() + ": ", exception));
+            log.error("Caught error in thread [{}]: {}", threadInstance.getName(), exception.getMessage()));
     thread.start();
 
     // During sleep time, the main thread is not consuming any CPU.
-    Thread.sleep(10000);
+    Thread.sleep(1000);
   }
 }

@@ -9,8 +9,8 @@
 - Low request latency
 ### Performance
 - **`Achieved by parallelism`**
-- We can create an illusion of multiple tasks executing in parallel using just a `single core`
-- With `multiple cores` we can truly run tasks complete in parallel
+- We can create an illusion of multiple tasks executing in parallel using just a `single core`.
+- With `multiple cores` we can truly run tasks complete in parallel.
 - Performance impact
   - Compling a complex task much faster
   - Finish more work in the same period of time
@@ -30,13 +30,34 @@
   - Stack
   - Instruction pointer
   - What threads share in a process:
-    - `[Process metadata, Files, Code, Data]`
+    - `[Process metadata, Files, Code, Data]`.
 
 ### Context switch
-- Context switch is not cheap, it's the price of multitasking
+- Context switch is not cheap, it's the price of multitasking.
 - When switching:
-  - Store data for one thread
-  - Restore data for another thread
+  - Store data for one thread.
+  - Restore data for another thread.
+
+### Thread Termination
+- Threads consume resources: memory, kernal, CPU cycles, cache.
+- Thread is misbehaving, we want to stop it.
+- The application will not stop as long as at least one thread is still running.
+
+#### Thread Interruption
+##### When we can interrupt a thread:
+1. If the thread is executing a method that throws an InterruptedException.
+2. If the thread's code is handling the interrupt signal explicitly.
+
+#### Daemon Thread
+- Background threads that do not prevent the application from exiting if the main thread terminates.
+
+### Thread Join
+- Different threads run independently
+- Order of execution is out of our control
+- Using thread join to:
+  - More control over independent threads
+  - Safely collect, aggregate results
+  - Gracefully handle runaway threads using Thread.join()
 
 ## WHEN to prefer Multithreaded architecture
 - Tasks share a lot of data

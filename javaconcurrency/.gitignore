@@ -9,3 +9,5 @@ build
 .vscode
 .idea
 bin
+multithreaded-flowers-recolored.jpg
+singlethread-flowers-recolored.jpg

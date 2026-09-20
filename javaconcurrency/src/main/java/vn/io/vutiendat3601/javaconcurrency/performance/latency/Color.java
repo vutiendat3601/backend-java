@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.session05performance.imageprocessing;
+package vn.io.vutiendat3601.javaconcurrency.performance.latency;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
@@ -6,10 +6,11 @@ import static java.lang.Math.min;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class Color {
-
-  private Color() {}
 
   public static void recolorMultithreaded(
       BufferedImage originalImage, BufferedImage resultImage, int numberOfThreads) {
@@ -18,13 +19,12 @@ public class Color {
     var height = originalImage.getHeight() / numberOfThreads;
 
     for (var i = 0; i < numberOfThreads; i++) {
-      final var threadMultiplier = i;
-
+      final var multiplier = i;
       var thread =
           new Thread(
               () -> {
                 var xOrigin = 0;
-                var yOrigin = height * threadMultiplier;
+                var yOrigin = height * multiplier;
                 recolorImage(originalImage, resultImage, xOrigin, yOrigin, width, height);
               });
 
@@ -46,7 +46,8 @@ public class Color {
         originalImage, resultImage, 0, 0, originalImage.getWidth(), originalImage.getHeight());
   }
 
-  public static void recolorImage(
+  /* #: Helpers */
+  private static void recolorImage(
       BufferedImage originalImage,
       BufferedImage resultImage,
       int leftCorner,
@@ -60,7 +61,7 @@ public class Color {
     }
   }
 
-  public static void recolorPixel(
+  private static void recolorPixel(
       BufferedImage originalImage, BufferedImage resultImage, int x, int y) {
     var rgb = originalImage.getRGB(x, y);
 
@@ -81,15 +82,15 @@ public class Color {
     setRGB(resultImage, x, y, newRGB);
   }
 
-  public static void setRGB(BufferedImage image, int x, int y, int rgb) {
+  private static void setRGB(BufferedImage image, int x, int y, int rgb) {
     image.getRaster().setDataElements(x, y, image.getColorModel().getDataElements(rgb, null));
   }
 
-  public static boolean isShadeOfGray(int red, int green, int blue) {
+  private static boolean isShadeOfGray(int red, int green, int blue) {
     return abs(red - green) < 30 && abs(red - blue) < 30 && abs(green - blue) < 30;
   }
 
-  public static int createRGBFromColors(int red, int green, int blue) {
+  private static int createRGBFromColors(int red, int green, int blue) {
     var rgb = 0;
 
     rgb |= blue;
@@ -101,15 +102,16 @@ public class Color {
     return rgb;
   }
 
-  public static int getRed(int rgb) {
+  private static int getRed(int rgb) {
     return (rgb & 0x00FF0000) >> 16;
   }
 
-  public static int getGreen(int rgb) {
+  private static int getGreen(int rgb) {
     return (rgb & 0x0000FF00) >> 8;
   }
 
-  public static int getBlue(int rgb) {
+  private static int getBlue(int rgb) {
     return rgb & 0x000000FF;
   }
+  /* # Helpers */
 }

@@ -8,6 +8,7 @@ import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import vn.io.vutiendat3601.pagination.dto.PaginationResponse;
 import vn.io.vutiendat3601.pagination.dto.StudentDto;
 import vn.io.vutiendat3601.pagination.mapper.StudentMapper;
@@ -38,7 +39,7 @@ public class StudentServiceV1 implements StudentService {
 
     var students = studentRepository.findByCreatedAtCursorLessThan(createdAtCursor, pageSize);
     var newCreatedAtCursor = createdAtCursor;
-    if (students.size() > 0) {
+    if (!CollectionUtils.isEmpty(students)) {
       newCreatedAtCursor = students.get(students.size() - 1).getCreatedAt();
     }
     var encodedNewCursor =

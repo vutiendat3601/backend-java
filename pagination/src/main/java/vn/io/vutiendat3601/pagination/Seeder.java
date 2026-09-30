@@ -35,7 +35,7 @@ public class Seeder {
 
   public void tearDown() {
     var ids = new LinkedList<Long>();
-    for (long i = 0; i < 100_000; i++) {
+    for (long i = 0; i < 100; i++) {
       ids.add(i);
     }
     studentRepository.deleteAllById(ids);

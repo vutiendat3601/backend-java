@@ -27,10 +27,11 @@
   - Data (Heap)
   - At least a `main thread`
 - In a thread, it includes:
-  - Stack
-  - Instruction pointer
+  - Stack: memory where methods ared called, arguments are passed, local variables are stored
+  - Instruction pointer: Point to next instruction to execute
   - What threads share in a process:
     - `[Process metadata, Files, Code, Data]`.
+  - *** State of thread's execution = Stack + Instruction pointer
 
 ### Context switch
 - Context switch is not cheap, it's the price of multitasking.

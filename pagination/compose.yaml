@@ -7,4 +7,4 @@ services:
       POSTGRES_PASSWORD: pagination
       POSTGRES_DB: pagination
     ports:
-      - "12027:5432"
+      - "5432:5432"

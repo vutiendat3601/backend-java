@@ -73,4 +73,23 @@
 ### Latency
 - The time to completion of a task. Measured in `timeUnit` (ms).
 ### Throughput
-- The amount of tasks completed in a given period. Measured in `numberOfTasks/timeUnit` (1000 requests/second)
+- The amount of tasks completed in a given period. Measured in `numberOfTasks/timeUnit` (1000 requests/second).
+
+## Concurrency Challenge
+### Race condition
+- A concurrency bug that occurs when a program's behavior or outcome depends on the timing or order of execution of multiple threads or processes accessing shared resources.
+### Critical Section
+- A critical section is a part of code that accesses shared resources and must be protected to prevent race conditions when multiple threads execute concurrently.
+### Synchronized
+- Locking mechanism, used to restrict access to a critical section or entire method to a single thread at a time.
+- 2 ways to use `synchronized`:
+  + On method definition
+  + On block of code
+- `synchronized` block is reentrant. A thread cannot prevent itself from entering a critical section.
+
+### Atomic Operation
+- All reference assignments are atomic `[Object obj = new Object()]`
+- Getters/setters are atomic
+- All primitive assigments are atomic except long and double. Because `[long,double]` uses 2 halves (32-bits).
+- `[long,double]` add `volatile` keyword to guarantee atomic
+- Classes in the `java.util.concurrent.atomic` are atomic

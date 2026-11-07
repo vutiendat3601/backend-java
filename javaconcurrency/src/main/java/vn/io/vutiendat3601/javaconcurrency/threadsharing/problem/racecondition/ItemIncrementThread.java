@@ -7,13 +7,13 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @Data
 @RequiredArgsConstructor
-public class DecrementThread extends Thread {
-  private final InventoryCounter inventoryCounter;
+public class ItemIncrementThread extends Thread {
+  private final ItemInventoryCounter inventoryCounter;
 
   @Override
   public void run() {
     for (int i = 0; i < 10_000; i++) {
-      inventoryCounter.decrement();
+      inventoryCounter.increment();
     }
   }
 }

@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.threadsharing.datarace;
+package vn.io.vutiendat3601.javaconcurrency.threadsharing.problem.datarace;
 
 public class DataRaceApplication {
   public static void main(String[] args) {

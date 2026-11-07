@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.threadsharing.synchronization.itemcounter;
+package vn.io.vutiendat3601.javaconcurrency.threadsharing.solving.synchronization.itemcounter;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.threadsharing.problem.racecondition;
+package vn.io.vutiendat3601.javaconcurrency.threadsharing.solving.synchronization.itemcounter2;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,13 +7,13 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @Data
 @RequiredArgsConstructor
-public class IncrementThread extends Thread {
-  private final InventoryCounter inventoryCounter;
+public class ItemDecrementThread extends Thread {
+  private final ItemInventoryCounter inventoryCounter;
 
   @Override
   public void run() {
     for (int i = 0; i < 10_000; i++) {
-      inventoryCounter.increment();
+      inventoryCounter.decrement();
     }
   }
 }

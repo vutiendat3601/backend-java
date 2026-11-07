@@ -1,6 +1,6 @@
 package vn.io.vutiendat3601.javaconcurrency.threadsharing.problem.racecondition;
 
-public class InventoryCounter {
+public class ItemInventoryCounter {
   private long numberOfItems = 0;
 
   public void increment() {

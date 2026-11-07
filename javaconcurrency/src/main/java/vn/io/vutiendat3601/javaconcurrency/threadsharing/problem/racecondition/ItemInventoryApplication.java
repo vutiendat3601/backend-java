@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.threadsharing.synchronization.itemcounter;
+package vn.io.vutiendat3601.javaconcurrency.threadsharing.problem.racecondition;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,6 +14,6 @@ public class ItemInventoryApplication {
     incrementingThread.join();
     decrementingThread.join();
 
-    log.info("We currently have {} items.", inventoryCounter.getNumberOfItems());
+    log.info("We currently have {} items.", inventoryCounter.getItems());
   }
 }

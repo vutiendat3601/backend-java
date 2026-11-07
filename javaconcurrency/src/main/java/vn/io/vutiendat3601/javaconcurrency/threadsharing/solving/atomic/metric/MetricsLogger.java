@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.threadsharing.atomic.metric;
+package vn.io.vutiendat3601.javaconcurrency.threadsharing.solving.atomic.metric;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

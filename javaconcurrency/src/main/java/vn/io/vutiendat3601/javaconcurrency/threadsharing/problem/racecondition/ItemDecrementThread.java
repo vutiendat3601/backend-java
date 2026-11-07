@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.threadsharing.synchronization.itemcounter;
+package vn.io.vutiendat3601.javaconcurrency.threadsharing.problem.racecondition;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

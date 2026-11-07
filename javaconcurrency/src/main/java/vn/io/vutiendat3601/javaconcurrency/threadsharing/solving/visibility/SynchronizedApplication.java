@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.threadsharing.visibility;
+package vn.io.vutiendat3601.javaconcurrency.threadsharing.solving.visibility;
 
 import lombok.extern.slf4j.Slf4j;
 

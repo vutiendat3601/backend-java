@@ -47,7 +47,7 @@
 #### Thread Interruption
 ##### When we can interrupt a thread:
 1. If the thread is executing a method that throws an InterruptedException.
-2. If the thread's code is handling the interrupt signal explicitly.
+2. If the thread's code is handling the interrupt signal explicitly (Thread.currentThread().isInterrupted()).
 
 #### Daemon Thread
 - Background threads that do not prevent the application from exiting if the main thread terminates.
@@ -106,3 +106,16 @@
   + Deadlock detection - Watchdog
   + Thread interruption (not possible with synchronized)
   + tryLock operations (not possible with synchronized)
+
+
+## Locking in Java
+### ReentrantLock
+- Works just like the synchronized keyword applied on an object
+- Requires explicit locking and unlocking
+### ReentrantLock capacities
+- Query methods - For testing
+  + getQueuedThreads(), getOwner(), isHeldByCurrentThread(), isLocked()
+  + Every production code needs to be thoroughly tested
+  + Control the lock's fairness
+  + lockInterruptibly()
+  + tryLock()

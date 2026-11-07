@@ -1,10 +1,8 @@
-package vn.io.vutiendat3601.javaconcurrency.threadsharing.atomicoperation.metric;
+package vn.io.vutiendat3601.javaconcurrency.threadsharing.atomic.metric;
 
 public class Metrics {
-  private long count = 0;
-  private double average = 0.0;
-
-  
+  private volatile long count = 0;
+  private volatile double average = 0.0;
 
   public synchronized void addSample(long sample) {
     double currentSum = average * count;
@@ -12,6 +10,7 @@ public class Metrics {
     average = (currentSum + sample) / count;
   }
 
+  // Getter / Setter is atomic
   public double getAverage() {
     return average;
   }

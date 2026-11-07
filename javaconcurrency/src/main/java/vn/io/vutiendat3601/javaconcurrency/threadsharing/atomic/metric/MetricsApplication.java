@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.threadsharing.atomicoperation.metric;
+package vn.io.vutiendat3601.javaconcurrency.threadsharing.atomic.metric;
 
 
 public class MetricsApplication {

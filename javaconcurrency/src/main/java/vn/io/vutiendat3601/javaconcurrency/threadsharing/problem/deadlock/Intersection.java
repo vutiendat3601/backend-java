@@ -24,7 +24,7 @@ public class Intersection {
     synchronized (roadB) {
       log.info("Road B is locked by thread {}", Thread.currentThread().getName());
       synchronized (roadA) {
-        log.info("Train is passing through road B");
+        log.info("Train is passing through road A");
         try {
           Thread.sleep(1);
         } catch (InterruptedException e) {

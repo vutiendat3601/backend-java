@@ -93,3 +93,16 @@
 - All primitive assigments are atomic except long and double. Because `[long,double]` uses 2 halves (32-bits).
 - `[long,double]` add `volatile` keyword to guarantee atomic
 - Classes in the `java.util.concurrent.atomic` are atomic
+
+### Deadlock
+- Conditions for Deadlock
+  + Mutual exclusion - Only one thread can have exclusive access to a resource
+  + Hold and wait - At least one thread is holding a resource and is waiting for another resource
+  + Non-preemptive allocation - A resource is released only after the thread is done using it
+  + Circular wait - A chain of at least 2 threads each one is holding one resource and waiting for another resource
+
+- Solution deadlock
+  + Avoid Circular wait - Enforce a strict order in lock aquisition (recommendation)
+  + Deadlock detection - Watchdog
+  + Thread interruption (not possible with synchronized)
+  + tryLock operations (not possible with synchronized)

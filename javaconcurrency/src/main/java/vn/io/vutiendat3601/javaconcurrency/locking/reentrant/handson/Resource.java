@@ -12,7 +12,7 @@ public class Resource {
     log.info("{} aquiring lock", Thread.currentThread().getName());
     lock.lock();
     try {
-      log.info("{} is aquired lock", Thread.currentThread().getName());
+      log.info("{} is acquired lock", Thread.currentThread().getName());
       Thread.sleep(3_000);
     } catch (InterruptedException e) {
       log.info("{} is interrupted", Thread.currentThread().getName());
@@ -26,7 +26,7 @@ public class Resource {
       log.info("{} is aquiring lock", Thread.currentThread().getName());
       lock.lockInterruptibly();
       try {
-        log.info("{} is aquired lock", Thread.currentThread().getName());
+        log.info("{} is acquired lock", Thread.currentThread().getName());
         Thread.sleep(3_000);
       } finally {
         lock.unlock();
@@ -40,7 +40,7 @@ public class Resource {
     log.info("{} is aquiring lock", Thread.currentThread().getName());
     if (lock.tryLock()) {
       try {
-        log.info("{} is aquired lock", Thread.currentThread().getName());
+        log.info("{} is acquired lock", Thread.currentThread().getName());
         Thread.sleep(3_000);
       } catch (Exception e) {
         log.info("{} is interrupted", Thread.currentThread().getName());
@@ -48,7 +48,7 @@ public class Resource {
         lock.unlock();
       }
     } else {
-      log.info("{} is failed to aquire lock", Thread.currentThread().getName());
+      log.info("{} is failed to acquire lock", Thread.currentThread().getName());
       log.info("{} is continuing task ...", Thread.currentThread().getName());
     }
   }

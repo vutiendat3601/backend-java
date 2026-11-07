@@ -112,6 +112,7 @@
 ### ReentrantLock
 - Works just like the synchronized keyword applied on an object
 - Requires explicit locking and unlocking
+
 ### ReentrantLock capacities
 - Query methods - For testing
   + getQueuedThreads(), getOwner(), isHeldByCurrentThread(), isLocked()
@@ -119,3 +120,13 @@
   + Control the lock's fairness
   + lockInterruptibly()
   + tryLock()
+
+### ReentrantReadWriteLock
+- Race conditions require
+  + Multiple threads sharing a resource
+  + At least one thread modifying the resource
+
+### ReentrantReadWriteLock capacities
+- Mutual Exclusion between readers and writers:
+  + If a write lock is acquired, no thread can acquire a read lock
+  + If at least one thread holds a read lock, no thread can acquire a write lock

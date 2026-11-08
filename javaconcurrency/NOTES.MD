@@ -130,3 +130,10 @@
 - Mutual Exclusion between readers and writers:
   + If a write lock is acquired, no thread can acquire a read lock
   + If at least one thread holds a read lock, no thread can acquire a write lock
+
+### Semophore
+- Limit number of concurrent threads accesing the resource
+
+### Semophore capacities
+- Semaphore as general case for a lock - permit issuing authority
+- Can restrict the number of users per critical section/resource

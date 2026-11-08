@@ -11,3 +11,5 @@ build
 bin
 mt-landscape-recolored.jpg
 st-landscape-recolored.jpg
+matrices.txt
+matrix_result.txt

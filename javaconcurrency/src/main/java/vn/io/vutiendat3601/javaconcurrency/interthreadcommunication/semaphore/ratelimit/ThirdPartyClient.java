@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.semaphore.ratelimit;
+package vn.io.vutiendat3601.javaconcurrency.interthreadcommunication.semaphore.ratelimit;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicLong;

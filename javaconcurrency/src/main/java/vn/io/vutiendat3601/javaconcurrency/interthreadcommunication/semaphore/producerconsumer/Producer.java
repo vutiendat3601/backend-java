@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.semaphore.producerconsumer;
+package vn.io.vutiendat3601.javaconcurrency.interthreadcommunication.semaphore.producerconsumer;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;

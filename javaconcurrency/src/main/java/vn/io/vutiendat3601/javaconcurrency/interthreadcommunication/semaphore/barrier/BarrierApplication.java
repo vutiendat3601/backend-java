@@ -1,4 +1,4 @@
-package vn.io.vutiendat3601.javaconcurrency.semaphore.barrier;
+package vn.io.vutiendat3601.javaconcurrency.interthreadcommunication.semaphore.barrier;
 
 import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;

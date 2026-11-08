@@ -1,6 +1,6 @@
 package vn.io.vutiendat3601.javaconcurrency.locking.reentrant.handson;
 
-public class HansOnReentrantLockApplication {
+public class ReentrantLockHandsOnApplication {
   public static void main(String[] args) throws InterruptedException {
     var resource = new Resource();
     var runnable = (Runnable) () -> resource.testLock();

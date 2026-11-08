@@ -137,3 +137,5 @@
 ### Semophore capacities
 - Semaphore as general case for a lock - permit issuing authority
 - Can restrict the number of users per critical section/resource
+- Any thread can release a semaphore (no ownership)
+- Inter-thread communication for producer consumer, using semaphore

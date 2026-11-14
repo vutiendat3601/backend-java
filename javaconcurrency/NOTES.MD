@@ -109,6 +109,11 @@
 
 
 ## Locking in Java
+### Why do we need a lock?
+- Multiple threads are accessing shared resources
+- At least one thread is modifying the shared resources
+- Non atomic operations on one shared resource. A single Java operation turns into one or more hardware operations
+
 ### ReentrantLock
 - Works just like the synchronized keyword applied on an object
 - Requires explicit locking and unlocking
@@ -149,3 +154,7 @@
 There's a case, the low priority thread acquires the lock, then it is preempted (scheduled out by CPU). So, high priority thread cannot progress because of the low priority thread is not scheduled to release the lock.
 - Thread not releasing a lock (kill tolerance). Thread dies, gets interrupted or forgets to release a lock.
 - Performance overhead in having contention over a lock
+
+### Lock Free Solution
+- Utilize operations which are guaranteed to be one hardware operation
+- A single hardware operation is atomic and thread safe

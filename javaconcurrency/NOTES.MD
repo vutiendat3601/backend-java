@@ -139,3 +139,13 @@
 - Can restrict the number of users per critical section/resource
 - Any thread can release a semaphore (no ownership)
 - Inter-thread communication for producer consumer, using semaphore
+
+### What's trade-off of Lock?
+- Deadlocks are generally unrecoverable
+- Can bring the application to a complete halt
+- The more locks in the application, the higher the chances for a deadlock
+- Slow critical section
+- 2 threads sharing a lock: [Low priority thread (Background), High priority thread (UI)].
+There's a case, the low priority thread acquires the lock, then it is preempted (scheduled out by CPU). So, high priority thread cannot progress because of the low priority thread is not scheduled to release the lock.
+- Thread not releasing a lock (kill tolerance). Thread dies, gets interrupted or forgets to release a lock.
+- Performance overhead in having contention over a lock
